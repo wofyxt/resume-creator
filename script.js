@@ -46,7 +46,7 @@
         });
         
         // CTA buttons functionality
-        document.querySelectorAll('.btn-primary, .cta .btn').forEach(button => {
+        document.querySelectorAll('.btn-accent, .cta .btn').forEach(button => {
             button.addEventListener('click', function() {
                 // In a real app, this would redirect to the resume builder
                 alert('Перенаправление в конструктор резюме...');
