@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumePro - Регистрация</title>
+    <title>ResumePro - Вход</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="styles/registration.css">
+    <link rel="stylesheet" href="styles/login.css">
 </head>
 <body>
     <!-- Header -->
@@ -63,17 +63,11 @@
             <div class="auth-container">
                 <div class="auth-card">
                     <div class="auth-header">
-                        <h1>Создать аккаунт</h1>
-                        <p>Зарегистрируйтесь, чтобы начать создавать профессиональные резюме</p>
+                        <h1>Войти в аккаунт</h1>
+                        <p>Войдите, чтобы продолжить создание резюме</p>
                     </div>
                     
-                    <form class="auth-form" id="signup-form">
-                        <div class="form-group">
-                            <label for="name">Имя</label>
-                            <input type="text" id="name" name="name" required>
-                            <div class="error-message" id="name-error">Пожалуйста, введите ваше имя</div>
-                        </div>
-                        
+                    <form class="auth-form" id="login-form">
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" required>
@@ -82,18 +76,19 @@
                         
                         <div class="form-group">
                             <label for="password">Пароль</label>
-                            <input type="password" id="password" name="password" required minlength="8">
-                            <div class="error-message" id="password-error">Пароль должен содержать минимум 8 символов, включая буквы и цифры</div>
-                            <div class="password-requirements">Минимум 8 символов, включая буквы и цифры</div>
+                            <input type="password" id="password" name="password" required>
+                            <div class="error-message" id="password-error">Пожалуйста, введите пароль</div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="confirm-password">Подтверждение пароля</label>
-                            <input type="password" id="confirm-password" name="confirm-password" required>
-                            <div class="error-message" id="confirm-password-error">Пароли не совпадают</div>
+                        <div class="form-options">
+                            <div class="remember-me">
+                                <input type="checkbox" id="remember-me" name="remember-me">
+                                <label for="remember-me">Запомнить меня</label>
+                            </div>
+                            <a href="forgot-password.html" class="forgot-password">Забыли пароль?</a>
                         </div>
                         
-                        <button type="submit" class="btn btn-accent">Зарегистрироваться</button>
+                        <button type="submit" class="btn btn-accent">Войти</button>
                     </form>
                     
                     <div class="divider">
@@ -101,7 +96,7 @@
                     </div>
                     
                     <div class="auth-footer">
-                        <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
+                        <p>Нет аккаунта? <a href="signup.html">Зарегистрироваться</a></p>
                     </div>
                 </div>
             </div>
@@ -148,6 +143,6 @@
         </div>
     </footer>
 
-    <script src="scripts/registration.js"></script>
+    <script src="scripts/login.js"></script>
 </body>
 </html>
