@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumePro - Конструктор резюме</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2485c2;
+            --primary-dark: #12233b;
+            --buthover: #2c509d;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f8fafc;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo svg {
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--dark-color);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-accent {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: #e69008;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        /* Constructor Section */
+        .constructor-wrapper {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .form-container {
+            flex: 1;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .form-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .form-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .form-container::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .preview-container {
+            flex: 1;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-header h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-header h2 i {
+            color: var(--accent-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 133, 194, 0.1);
+        }
+
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: var(--error-color);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-group input.success,
+        .form-group textarea.success,
+        .form-group select.success {
+            border-color: var(--success-color);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .validation-message {
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .validation-message.error {
+            color: var(--error-color);
+        }
+
+        .validation-message.success {
+            color: var(--success-color);
+        }
+
+        .validation-icon {
+            font-size: 0.9rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h3 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-header h3 i {
+            color: var(--primary-color);
+        }
+
+        .add-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-btn:hover {
+            background: #e69008;
+            transform: scale(1.1);
+        }
+
+        .dynamic-item {
+            background: #f8fafc;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--error-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .remove-btn:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(37, 133, 194, 0.1);
+            color: var(--primary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-tag .remove-skill {
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .skill-tag .remove-skill:hover {
+            color: var(--error-color);
+        }
+
+        .add-skill {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .add-skill input {
+            flex: 1;
+        }
+
+        .education-period {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .education-period select {
+            flex: 1;
+        }
+
+        .education-period .separator {
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .preview-header h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .resume-preview {
+            flex: 1;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            overflow-y: auto;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .resume-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .resume-contact {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        .resume-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .resume-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resume-section-title i {
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .resume-item {
+            margin-bottom: 1rem;
+        }
+
+        .resume-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+
+        .resume-item-title {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .resume-item-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .resume-item-subtitle {
+            font-style: italic;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-item-description {
+            color: var(--secondary-color);
+            line-height: 1.5;
+        }
+
+        .resume-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .resume-skill {
+            background: rgba(37, 133, 194, 0.1);
+            color: var(--primary-color);
+            padding: 0.3rem 0.7rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        .template-selector {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .template-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .template-option {
+            flex: 1;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .template-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .template-option.active {
+            border-color: var(--accent-color);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .template-preview {
+            height: 100px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .footer-contact {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .footer-contact:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-contact i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        .footer-contact a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-contact a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .constructor-wrapper {
+                flex-direction: column;
+            }
+            
+            .form-container, .preview-container {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .resume-contact {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .template-options {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .preview-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .preview-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .education-period {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+            
+            .education-period .separator {
+                display: none;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            z-index: 1000;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 1rem;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .mobile-auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Стили для разных шаблонов резюме */
+
+/* Классический шаблон (по умолчанию) */
+.template-classic {
+  --primary-color: #2485c2;
+  --accent-color: #f59e0b;
+  font-family: 'Georgia', serif;
+}
+
+.template-classic .resume-header {
+  text-align: center;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.template-classic .resume-section-title {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Современный шаблон */
+.template-modern {
+  --primary-color: #2d3748;
+  --accent-color: #4299e1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.template-modern .resume-header {
+  background: linear-gradient(135deg, var(--primary-color), #4a5568);
+  color: white;
+  padding: 2rem;
+  margin: -2rem -2rem 2rem -2rem;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.template-modern .resume-name {
+  color: white;
+  font-size: 2.2rem;
+}
+
+.template-modern .resume-title {
+  color: #e2e8f0;
+}
+
+.template-modern .resume-contact {
+  color: #cbd5e0;
+}
+
+.template-modern .resume-section-title {
+  color: var(--primary-color);
+  border-left: 4px solid var(--accent-color);
+  padding-left: 1rem;
+  border-bottom: none;
+}
+
+/* Креативный шаблон */
+.template-creative {
+  --primary-color: #7c3aed;
+  --accent-color: #10b981;
+  font-family: 'Arial', sans-serif;
+}
+
+.template-creative .resume-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 3px double var(--accent-color);
+}
+
+.template-creative .resume-header::before {
+  content: "";
+  width: 100px;
+  height: 100px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.template-creative .resume-contact {
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.template-creative .resume-section {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+}
+
+.template-creative .resume-section-title {
+  color: var(--primary-color);
+  border-bottom: 2px dotted var(--accent-color);
+}
+.resume-contact div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.resume-contact i {
+    width: 16px;
+    color: var(--accent-color);
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    ResumePro
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="templates.html">Шаблоны</a></li>
+                    <li><a href="examples.html">Примеры</a></li>
+                    <li><a href="help.html">Помощь</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline">Войти</a>
+                    <a href="signup.html" class="btn btn-accent">Зарегистрироваться</a>
+                </div>
+                
+                <button class="mobile-menu-btn">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="overlay"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="logo">ResumePro</a>
+            <button class="close-menu">✕</button>
+        </div>
+        
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="templates.html">Шаблоны</a></li>
+            <li><a href="examples.html">Примеры</a></li>
+            <li><a href="help.html">Помощь</a></li>
+        </ul>
+        
+        <div class="mobile-auth-buttons">
+            <a href="login.html" class="btn btn-outline">Войти</a>
+            <a href="signup.html" class="btn btn-accent">Зарегистрироваться</a>
+        </div>
+    </div>
+
+    <!-- Constructor Section -->
+    <div class="container">
+        <div class="constructor-wrapper">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-edit"></i> Заполните информацию</h2>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-user"></i> Личная информация</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fullName">Полное имя *</label>
+                        <input type="text" id="fullName" placeholder="Иванов Иван Иванович" required>
+                        <div class="validation-message" id="nameValidation"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="jobTitle">Желаемая должность *</label>
+                        <input type="text" id="jobTitle" placeholder="Frontend разработчик" required>
+                        <div class="validation-message" id="titleValidation"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" placeholder="example@email.com" required>
+                        <div class="validation-message" id="emailValidation"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" placeholder="+7 (999) 123-45-67" required>
+                        <div class="validation-message" id="phoneValidation"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Местоположение</label>
+                        <input type="text" id="location" placeholder="Москва, Россия">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="summary">О себе</label>
+                        <textarea id="summary" placeholder="Краткое описание вашего профессионального опыта и целей"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-briefcase"></i> Опыт работы</h3>
+                        <button class="add-btn" id="addExperience">+</button>
+                    </div>
+                    
+                    <div id="experienceContainer">
+                        <div class="dynamic-item">
+                            <button class="remove-btn">×</button>
+                            
+                            <div class="form-group">
+                                <label>Должность</label>
+                                <input type="text" class="exp-position" placeholder="Frontend разработчик">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Компания</label>
+                                <input type="text" class="exp-company" placeholder="ООО Технологии">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Период работы</label>
+                                <input type="text" class="exp-period" placeholder="Январь 2020 - настоящее время">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Описание</label>
+                                <textarea class="exp-description" placeholder="Описание ваших обязанностей и достижений"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-graduation-cap"></i> Образование</h3>
+                        <button class="add-btn" id="addEducation">+</button>
+                    </div>
+                    
+                    <div id="educationContainer">
+                        <div class="dynamic-item">
+                            <button class="remove-btn">×</button>
+                            
+                            <div class="form-group">
+                                <label>Учебное заведение</label>
+                                <input type="text" class="edu-institution" placeholder="Московский государственный университет">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Специальность</label>
+                                <input type="text" class="edu-degree" placeholder="Бакалавр информатики">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Период обучения *</label>
+                                <div class="education-period">
+                                    <select class="edu-start-year" required>
+                                        <option value="">Год начала</option>
+                                        <!-- Годы будут заполнены через JavaScript -->
+                                    </select>
+                                    <span class="separator">-</span>
+                                    <select class="edu-end-year" required>
+                                        <option value="">Год окончания</option>
+                                        <!-- Годы будут заполнены через JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="validation-message edu-period-validation"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-code"></i> Навыки</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Добавить навык</label>
+                        <div class="add-skill">
+                            <input type="text" id="newSkill" placeholder="JavaScript, React, HTML/CSS">
+                            <button class="btn btn-primary" id="addSkillBtn">Добавить</button>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-container" id="skillsContainer">
+                        <div class="skill-tag">
+                            HTML/CSS <span class="remove-skill">×</span>
+                        </div>
+                        <div class="skill-tag">
+                            JavaScript <span class="remove-skill">×</span>
+                        </div>
+                        <div class="skill-tag">
+                            React <span class="remove-skill">×</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="template-selector">
+                    <div class="section-header">
+                        <h3><i class="fas fa-palette"></i> Выбор шаблона</h3>
+                    </div>
+                    
+                    <div class="template-options">
+                        <div class="template-option active" data-template="classic">
+                            <div class="template-preview">Классический</div>
+                            <div>Классический</div>
+                        </div>
+                        <div class="template-option" data-template="modern">
+                            <div class="template-preview">Современный</div>
+                            <div>Современный</div>
+                        </div>
+                        <div class="template-option" data-template="creative">
+                            <div class="template-preview">Креативный</div>
+                            <div>Креативный</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="preview-container">
+               <div class="resume-header">
+    <div class="resume-name" id="previewName">Иванов Иван Иванович</div>
+    <div class="resume-title" id="previewTitle">Frontend разработчик</div>
+    <div class="resume-contact">
+        <div><i class="fas fa-envelope"></i> <span id="previewEmail">example@email.com</span></div>
+        <div><i class="fas fa-phone"></i> <span id="previewPhone">+7 (999) 123-45-67</span></div>
+        <div><i class="fas fa-map-marker-alt"></i> <span id="previewLocation">Москва, Россия</span></div>
+    </div>
+</div>
+                
+                <div class="resume-preview" id="resumePreview">
+                    <div class="resume-header">
+                        <div class="resume-name" id="previewName">Иванов Иван Иванович</div>
+                        <div class="resume-title" id="previewTitle">Frontend разработчик</div>
+                        <div class="resume-contact">
+                            <div id="previewEmail">example@email.com</div>
+                            <div id="previewPhone">+7 (999) 123-45-67</div>
+                            <div id="previewLocation">Москва, Россия</div>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <div class="resume-section-title">
+                            <i class="fas fa-user"></i> О себе
+                        </div>
+                        <div class="resume-item-description" id="previewSummary">
+                            Опытный frontend разработчик с 5-летним опытом работы над веб-приложениями. Специализируюсь на JavaScript, React и современных фреймворках.
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <div class="resume-section-title">
+                            <i class="fas fa-briefcase"></i> Опыт работы
+                        </div>
+                        <div id="previewExperience">
+                            <div class="resume-item">
+                                <div class="resume-item-header">
+                                    <div class="resume-item-title">Frontend разработчик</div>
+                                    <div class="resume-item-date">Январь 2020 - настоящее время</div>
+                                </div>
+                                <div class="resume-item-subtitle">ООО Технологии</div>
+                                <div class="resume-item-description">
+                                    Разработка и поддержка пользовательских интерфейсов для веб-приложений. Оптимизация производительности и доступности.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <div class="resume-section-title">
+                            <i class="fas fa-graduation-cap"></i> Образование
+                        </div>
+                        <div id="previewEducation">
+                            <div class="resume-item">
+                                <div class="resume-item-header">
+                                    <div class="resume-item-title">Бакалавр информатики</div>
+                                    <div class="resume-item-date">2016 - 2020</div>
+                                </div>
+                                <div class="resume-item-subtitle">Московский государственный университет</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <div class="resume-section-title">
+                            <i class="fas fa-code"></i> Навыки
+                        </div>
+                        <div class="resume-skills" id="previewSkills">
+                            <div class="resume-skill">HTML/CSS</div>
+                            <div class="resume-skill">JavaScript</div>
+                            <div class="resume-skill">React</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ResumePro</h3>
+                    <p>Интерактивный конструктор резюме для современных специалистов. Создавайте профессиональные резюме за минуты с нашими готовыми шаблонами.</p>
+                    <div class="footer-contact">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:support@resumepro.ru">support@resumepro.ru</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Навигация</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">Шаблоны</a></li>
+                        <li><a href="#">Примеры</a></li>
+
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Дополнительная информация</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                        <li><a href="#">Помощь</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 ResumePro. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const closeMenu = document.querySelector('.close-menu');
+        const overlay = document.querySelector('.overlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Generate year options for education period
+        function generateYearOptions(startYear, endYear) {
+            const years = [];
+            for (let year = startYear; year <= endYear; year++) {
+                years.push(year);
+            }
+            return years;
+        }
+        
+        // Populate year select elements
+        function populateYearSelects() {
+            const currentYear = new Date().getFullYear();
+            const startYears = generateYearOptions(1970, currentYear);
+            const endYears = generateYearOptions(1970, currentYear + 5);
+            
+            const startSelects = document.querySelectorAll('.edu-start-year');
+            const endSelects = document.querySelectorAll('.edu-end-year');
+            
+            startSelects.forEach(select => {
+                // Clear existing options except the first one
+                while (select.options.length > 1) {
+                    select.remove(1);
+                }
+                
+                // Add year options
+                startYears.forEach(year => {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    select.appendChild(option);
+                });
+            });
+            
+            endSelects.forEach(select => {
+                // Clear existing options except the first one
+                while (select.options.length > 1) {
+                    select.remove(1);
+                }
+                
+                // Add year options
+                endYears.forEach(year => {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    select.appendChild(option);
+                });
+            });
+        }
+        
+        // Validation functions
+        function validateName(name) {
+            const nameRegex = /^[А-ЯЁ][а-яё]+\s[А-ЯЁ][а-яё]+\s[А-ЯЁ][а-яё]+$/;
+            return nameRegex.test(name.trim());
+        }
+        
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email.trim());
+        }
+        
+        function validatePhone(phone) {
+            // Российский формат: +7 (XXX) XXX-XX-XX
+            const phoneRegex = /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/;
+            return phoneRegex.test(phone.trim());
+        }
+        
+        function validateEducationPeriod(startYear, endYear) {
+            if (!startYear || !endYear) {
+                return { isValid: false, message: 'Выберите год начала и год окончания' };
+            }
+            
+            if (parseInt(startYear) > parseInt(endYear)) {
+                return { isValid: false, message: 'Год начала не может быть больше года окончания' };
+            }
+            
+            return { isValid: true, message: '✓ Корректный период обучения' };
+        }
+        
+        function formatPhone(value) {
+            // Удаляем все нецифровые символы
+            let numbers = value.replace(/\D/g, '');
+            
+            // Если номер начинается с 7 или 8, заменяем на +7
+            if (numbers.startsWith('7') || numbers.startsWith('8')) {
+                numbers = '7' + numbers.substring(1);
+            }
+            
+            // Форматируем номер
+            if (numbers.length === 0) return '';
+            if (numbers.length <= 3) return '+7 (' + numbers;
+            if (numbers.length <= 6) return '+7 (' + numbers.substring(0, 3) + ') ' + numbers.substring(3);
+            if (numbers.length <= 8) return '+7 (' + numbers.substring(0, 3) + ') ' + numbers.substring(3, 6) + '-' + numbers.substring(6);
+            
+            return '+7 (' + numbers.substring(0, 3) + ') ' + numbers.substring(3, 6) + '-' + numbers.substring(6, 8) + '-' + numbers.substring(8, 10);
+        }
+        
+        // Form Inputs to Preview with Validation
+        const formInputs = document.querySelectorAll('#fullName, #jobTitle, #email, #phone, #location, #summary');
+        
+        formInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                updatePreview();
+                validateField(this);
+            });
+        });
+        
+        // Phone input formatting
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            // Сохраняем позицию курсора
+            const cursorPosition = e.target.selectionStart;
+            const originalLength = e.target.value.length;
+            
+            // Форматируем номер
+            e.target.value = formatPhone(e.target.value);
+            
+            // Восстанавливаем позицию курсора с учетом добавленных символов
+            const newLength = e.target.value.length;
+            const lengthDiff = newLength - originalLength;
+            
+            e.target.setSelectionRange(cursorPosition + lengthDiff, cursorPosition + lengthDiff);
+            
+            // Валидируем поле
+            validateField(e.target);
+            updatePreview();
+        });
+        
+        function validateField(field) {
+            const value = field.value.trim();
+            let isValid = true;
+            let message = '';
+            
+            switch(field.id) {
+                case 'fullName':
+                    if (value === '') {
+                        isValid = false;
+                        message = 'Поле обязательно для заполнения';
+                    } else if (!validateName(value)) {
+                        isValid = false;
+                        message = 'Введите ФИО в формате: Иванов Иван Иванович';
+                    } else {
+                        message = '✓ Корректное ФИО';
+                    }
+                    break;
+                    
+                case 'jobTitle':
+                    if (value === '') {
+                        isValid = false;
+                        message = 'Поле обязательно для заполнения';
+                    } else if (value.length < 2) {
+                        isValid = false;
+                        message = 'Название должности слишком короткое';
+                    } else {
+                        message = '✓ Корректная должность';
+                    }
+                    break;
+                    
+                case 'email':
+                    if (value === '') {
+                        isValid = false;
+                        message = 'Поле обязательно для заполнения';
+                    } else if (!validateEmail(value)) {
+                        isValid = false;
+                        message = 'Введите корректный email адрес';
+                    } else {
+                        message = '✓ Корректный email';
+                    }
+                    break;
+                    
+                case 'phone':
+                    if (value === '') {
+                        isValid = false;
+                        message = 'Поле обязательно для заполнения';
+                    } else if (!validatePhone(value)) {
+                        isValid = false;
+                        message = 'Введите телефон в формате: +7 (999) 123-45-67';
+                    } else {
+                        message = '✓ Корректный телефон';
+                    }
+                    break;
+            }
+            
+            // Обновляем стиль поля и сообщение
+            const validationElement = document.getElementById(field.id + 'Validation');
+            if (validationElement) {
+                validationElement.textContent = message;
+                validationElement.className = 'validation-message ' + (isValid && value !== '' ? 'success' : 'error');
+                
+                if (value === '') {
+                    validationElement.textContent = '';
+                }
+            }
+            
+            field.className = '';
+            if (value !== '') {
+                field.className = isValid ? 'success' : 'error';
+            }
+            
+            return isValid;
+        }
+        
+        function validateEducationFields(educationItem) {
+            const startYear = educationItem.querySelector('.edu-start-year').value;
+            const endYear = educationItem.querySelector('.edu-end-year').value;
+            const validation = validateEducationPeriod(startYear, endYear);
+            
+            const validationElement = educationItem.querySelector('.edu-period-validation');
+            if (validationElement) {
+                validationElement.textContent = validation.message;
+                validationElement.className = 'validation-message ' + (validation.isValid ? 'success' : 'error');
+                
+                if (!startYear && !endYear) {
+                    validationElement.textContent = '';
+                }
+            }
+            
+            // Update select styles
+            const startSelect = educationItem.querySelector('.edu-start-year');
+            const endSelect = educationItem.querySelector('.edu-end-year');
+            
+            startSelect.className = 'edu-start-year';
+            endSelect.className = 'edu-end-year';
+            
+            if (startYear || endYear) {
+                const className = validation.isValid ? 'success' : 'error';
+                startSelect.classList.add(className);
+                endSelect.classList.add(className);
+            }
+            
+            return validation.isValid;
+        }
+        
+        function validateAllFields() {
+            let isValid = true;
+            
+            const requiredFields = ['fullName', 'jobTitle', 'email', 'phone'];
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            });
+            
+            // Validate education periods
+            const educationItems = document.querySelectorAll('#educationContainer .dynamic-item');
+            educationItems.forEach(item => {
+                if (!validateEducationFields(item)) {
+                    isValid = false;
+                }
+            });
+            
+            return isValid;
+        }
+        
+        function updatePreview() {
+            document.getElementById('previewName').textContent = document.getElementById('fullName').value || 'Иванов Иван Иванович';
+            document.getElementById('previewTitle').textContent = document.getElementById('jobTitle').value || 'Frontend разработчик';
+            document.getElementById('previewEmail').textContent = document.getElementById('email').value || 'example@email.com';
+            document.getElementById('previewPhone').textContent = document.getElementById('phone').value || '+7 (999) 123-45-67';
+            document.getElementById('previewLocation').textContent = document.getElementById('location').value || 'Москва, Россия';
+            document.getElementById('previewSummary').textContent = document.getElementById('summary').value || 'Опытный frontend разработчик с 5-летним опытом работы над веб-приложениями. Специализируюсь на JavaScript, React и современных фреймворках.';
+        }
+        
+        // Experience Management
+        const addExperienceBtn = document.getElementById('addExperience');
+        const experienceContainer = document.getElementById('experienceContainer');
+        
+        addExperienceBtn.addEventListener('click', () => {
+            const newExperience = document.createElement('div');
+            newExperience.className = 'dynamic-item';
+            newExperience.innerHTML = `
+                <button class="remove-btn">×</button>
+                
+                <div class="form-group">
+                    <label>Должность</label>
+                    <input type="text" class="exp-position" placeholder="Frontend разработчик">
+                </div>
+                
+                <div class="form-group">
+                    <label>Компания</label>
+                    <input type="text" class="exp-company" placeholder="ООО Технологии">
+                </div>
+                
+                <div class="form-group">
+                    <label>Период работы</label>
+                    <input type="text" class="exp-period" placeholder="Январь 2020 - настоящее время">
+                </div>
+                
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea class="exp-description" placeholder="Описание ваших обязанностей и достижений"></textarea>
+                </div>
+            `;
+            
+            experienceContainer.appendChild(newExperience);
+            
+            // Add event listeners to new inputs
+            const inputs = newExperience.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', updateExperiencePreview);
+            });
+            
+            // Add remove functionality
+            const removeBtn = newExperience.querySelector('.remove-btn');
+            removeBtn.addEventListener('click', () => {
+                newExperience.remove();
+                updateExperiencePreview();
+            });
+            
+            updateExperiencePreview();
+        });
+        
+        // Update experience preview
+        function updateExperiencePreview() {
+            const previewContainer = document.getElementById('previewExperience');
+            previewContainer.innerHTML = '';
+            
+            const experienceItems = document.querySelectorAll('#experienceContainer .dynamic-item');
+            
+            experienceItems.forEach(item => {
+                const position = item.querySelector('.exp-position').value || 'Frontend разработчик';
+                const company = item.querySelector('.exp-company').value || 'ООО Технологии';
+                const period = item.querySelector('.exp-period').value || 'Январь 2020 - настоящее время';
+                const description = item.querySelector('.exp-description').value || 'Разработка и поддержка пользовательских интерфейсов для веб-приложений. Оптимизация производительности и доступности.';
+                
+                const experienceHTML = `
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <div class="resume-item-title">${position}</div>
+                            <div class="resume-item-date">${period}</div>
+                        </div>
+                        <div class="resume-item-subtitle">${company}</div>
+                        <div class="resume-item-description">
+                            ${description}
+                        </div>
+                    </div>
+                `;
+                
+                previewContainer.innerHTML += experienceHTML;
+            });
+            
+            // If no experience items, show placeholder
+            if (experienceItems.length === 0) {
+                previewContainer.innerHTML = `
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <div class="resume-item-title">Frontend разработчик</div>
+                            <div class="resume-item-date">Январь 2020 - настоящее время</div>
+                        </div>
+                        <div class="resume-item-subtitle">ООО Технологии</div>
+                        <div class="resume-item-description">
+                            Разработка и поддержка пользовательских интерфейсов для веб-приложений. Оптимизация производительности и доступности.
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Add event listeners to existing experience inputs
+        document.querySelectorAll('#experienceContainer input, #experienceContainer textarea').forEach(input => {
+            input.addEventListener('input', updateExperiencePreview);
+        });
+        
+        // Education Management
+        const addEducationBtn = document.getElementById('addEducation');
+        const educationContainer = document.getElementById('educationContainer');
+        
+        addEducationBtn.addEventListener('click', () => {
+            const newEducation = document.createElement('div');
+            newEducation.className = 'dynamic-item';
+            newEducation.innerHTML = `
+                <button class="remove-btn">×</button>
+                
+                <div class="form-group">
+                    <label>Учебное заведение</label>
+                    <input type="text" class="edu-institution" placeholder="Московский государственный университет">
+                </div>
+                
+                <div class="form-group">
+                    <label>Специальность</label>
+                    <input type="text" class="edu-degree" placeholder="Бакалавр информатики">
+                </div>
+                
+                <div class="form-group">
+                    <label>Период обучения *</label>
+                    <div class="education-period">
+                        <select class="edu-start-year" required>
+                            <option value="">Год начала</option>
+                        </select>
+                        <span class="separator">-</span>
+                        <select class="edu-end-year" required>
+                            <option value="">Год окончания</option>
+                        </select>
+                    </div>
+                    <div class="validation-message edu-period-validation"></div>
+                </div>
+            `;
+            
+            educationContainer.appendChild(newEducation);
+            
+            // Populate year selects for new education item
+            populateYearSelects();
+            
+            // Add event listeners to new inputs
+            const inputs = newEducation.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (input.classList.contains('edu-start-year') || input.classList.contains('edu-end-year')) {
+                    input.addEventListener('change', function() {
+                        validateEducationFields(newEducation);
+                        updateEducationPreview();
+                    });
+                } else {
+                    input.addEventListener('input', updateEducationPreview);
+                }
+            });
+            
+            // Add remove functionality
+            const removeBtn = newEducation.querySelector('.remove-btn');
+            removeBtn.addEventListener('click', () => {
+                newEducation.remove();
+                updateEducationPreview();
+            });
+            
+            updateEducationPreview();
+        });
+        
+        // Update education preview
+        function updateEducationPreview() {
+            const previewContainer = document.getElementById('previewEducation');
+            previewContainer.innerHTML = '';
+            
+            const educationItems = document.querySelectorAll('#educationContainer .dynamic-item');
+            
+            educationItems.forEach(item => {
+                const institution = item.querySelector('.edu-institution').value || 'Московский государственный университет';
+                const degree = item.querySelector('.edu-degree').value || 'Бакалавр информатики';
+                const startYear = item.querySelector('.edu-start-year').value;
+                const endYear = item.querySelector('.edu-end-year').value;
+                const period = startYear && endYear ? `${startYear} - ${endYear}` : '2016 - 2020';
+                
+                const educationHTML = `
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <div class="resume-item-title">${degree}</div>
+                            <div class="resume-item-date">${period}</div>
+                        </div>
+                        <div class="resume-item-subtitle">${institution}</div>
+                    </div>
+                `;
+                
+                previewContainer.innerHTML += educationHTML;
+            });
+            
+            // If no education items, show placeholder
+            if (educationItems.length === 0) {
+                previewContainer.innerHTML = `
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <div class="resume-item-title">Бакалавр информатики</div>
+                            <div class="resume-item-date">2016 - 2020</div>
+                        </div>
+                        <div class="resume-item-subtitle">Московский государственный университет</div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Add event listeners to existing education inputs
+        document.querySelectorAll('#educationContainer input, #educationContainer select').forEach(input => {
+            if (input.classList.contains('edu-start-year') || input.classList.contains('edu-end-year')) {
+                input.addEventListener('change', function() {
+                    const educationItem = this.closest('.dynamic-item');
+                    validateEducationFields(educationItem);
+                    updateEducationPreview();
+                });
+            } else {
+                input.addEventListener('input', updateEducationPreview);
+            }
+        });
+        
+        // Skills Management
+        const addSkillBtn = document.getElementById('addSkillBtn');
+        const newSkillInput = document.getElementById('newSkill');
+        const skillsContainer = document.getElementById('skillsContainer');
+        
+        addSkillBtn.addEventListener('click', () => {
+            const skillText = newSkillInput.value.trim();
+            if (skillText) {
+                const skills = skillText.split(',').map(skill => skill.trim()).filter(skill => skill);
+                
+                skills.forEach(skill => {
+                    const skillTag = document.createElement('div');
+                    skillTag.className = 'skill-tag';
+                    skillTag.innerHTML = `
+                        ${skill} <span class="remove-skill">×</span>
+                    `;
+                    
+                    skillsContainer.appendChild(skillTag);
+                    
+                    // Add remove functionality
+                    const removeSkill = skillTag.querySelector('.remove-skill');
+                    removeSkill.addEventListener('click', () => {
+                        skillTag.remove();
+                        updateSkillsPreview();
+                    });
+                });
+                
+                newSkillInput.value = '';
+                updateSkillsPreview();
+            }
+        });
+        
+        // Update skills preview
+        function updateSkillsPreview() {
+            const previewContainer = document.getElementById('previewSkills');
+            previewContainer.innerHTML = '';
+            
+            const skillTags = document.querySelectorAll('#skillsContainer .skill-tag');
+            
+            skillTags.forEach(tag => {
+                const skillText = tag.textContent.replace('×', '').trim();
+                const skillHTML = `<div class="resume-skill">${skillText}</div>`;
+                previewContainer.innerHTML += skillHTML;
+            });
+            
+            // If no skills, show placeholder
+            if (skillTags.length === 0) {
+                previewContainer.innerHTML = `
+                    <div class="resume-skill">HTML/CSS</div>
+                    <div class="resume-skill">JavaScript</div>
+                    <div class="resume-skill">React</div>
+                `;
+            }
+        }
+        
+        // Add event listeners to existing skill remove buttons
+        document.querySelectorAll('#skillsContainer .remove-skill').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.parentElement.remove();
+                updateSkillsPreview();
+            });
+        });
+        
+        // Template Selection
+const templateOptions = document.querySelectorAll('.template-option');
+const resumePreview = document.getElementById('resumePreview');
+
+templateOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        // Remove active class from all options
+        templateOptions.forEach(opt => opt.classList.remove('active'));
+        
+        // Add active class to clicked option
+        this.classList.add('active');
+        
+        // Get selected template
+        const template = this.getAttribute('data-template');
+        
+        // Remove all template classes
+        resumePreview.classList.remove('template-classic', 'template-modern', 'template-creative');
+        
+        // Add selected template class
+        resumePreview.classList.add(`template-${template}`);
+        
+        // Update preview layout based on template
+        updatePreviewLayout(template);
+    });
+});
+
+// Function to update layout based on template
+function updatePreviewLayout(template) {
+    const resumeHeader = document.querySelector('.resume-header');
+    const contactInfo = document.querySelector('.resume-contact');
+    
+    switch(template) {
+        case 'modern':
+            // Для современного шаблона можно добавить дополнительные изменения
+            break;
+        case 'creative':
+            // Для креативного шаблона
+            break;
+        default:
+            // Для классического шаблона
+            break;
+    }
+}
+
+// Initialize with classic template
+resumePreview.classList.add('template-classic');
+        
+        // Save and Export Buttons
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            if (validateAllFields()) {
+                alert('Резюме сохранено!');
+            } else {
+                alert('Пожалуйста, заполните все обязательные поля корректно');
+            }
+        });
+        
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            if (validateAllFields()) {
+                alert('Экспорт в PDF начат...');
+                // In a real app, this would generate and download a PDF
+            } else {
+                alert('Пожалуйста, заполните все обязательные поля корректно перед экспортом');
+            }
+        });
+        
+        // Initialize the form
+        function initializeForm() {
+            populateYearSelects();
+            updatePreview();
+            updateExperiencePreview();
+            updateEducationPreview();
+            updateSkillsPreview();
+        }
+        
+        // Initialize the form when the page loads
+        document.addEventListener('DOMContentLoaded', initializeForm);
+
+        // Save selected template to localStorage
+function saveTemplateSelection(template) {
+    localStorage.setItem('selectedTemplate', template);
+}
+
+// Load saved template on page load
+function loadSavedTemplate() {
+    const savedTemplate = localStorage.getItem('selectedTemplate') || 'classic';
+    const templateOption = document.querySelector(`[data-template="${savedTemplate}"]`);
+    
+    if (templateOption) {
+        templateOption.click(); // Активируем сохраненный шаблон
+    }
+}
+
+// Обновите обработчик шаблонов:
+templateOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        // ... существующий код ...
+        
+        // Save selection
+        saveTemplateSelection(template);
+    });
+});
+
+// Вызовите при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    initializeForm();
+    loadSavedTemplate(); // Загружаем сохраненный шаблон
+});
+    </script>
+</body>
+</html>

@@ -46,10 +46,23 @@
         });
         
         // CTA buttons functionality
-        document.querySelectorAll('.btn-accent, .cta .btn').forEach(button => {
-            button.addEventListener('click', function() {
+       // document.querySelectorAll('.btn-accent, .cta .btn').forEach(button => {
+           // button.addEventListener('click', function() {
                 // In a real app, this would redirect to the resume builder
-                alert('Перенаправление в конструктор резюме...');
+               // alert('Перенаправление в конструктор резюме...');
                 // window.location.href = '/builder';
-            });
-        });
+           // });
+        //});
+
+    //кнопки
+    const loginBtn = document.querySelector('.btn.btn-outline');
+    const regBtn = document.querySelector('.btn.btn-accent');
+
+    loginBtn.addEventListener('click', function(){
+        window.location.href = 'login.html';
+    });
+
+     regBtn.addEventListener('click', function(){
+        window.location.href = 'registration.html';
+    });
+    
