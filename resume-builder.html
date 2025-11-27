@@ -583,6 +583,206 @@
             font-size: 0.8rem;
         }
 
+        /* Стили для шаблонов резюме */
+        
+        /* Классический шаблон (по умолчанию) */
+        .template-classic .resume-preview {
+            font-family: 'Georgia', serif;
+            color: #333;
+        }
+        
+        .template-classic .resume-header {
+            border-bottom: 2px solid #8B4513;
+            padding-bottom: 1.5rem;
+        }
+        
+        .template-classic .resume-name {
+            color: #2c3e50;
+            font-size: 2.2rem;
+        }
+        
+        .template-classic .resume-title {
+            color: #8B4513;
+            font-size: 1.3rem;
+        }
+        
+        .template-classic .resume-section-title {
+            color: #2c3e50;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        
+        .template-classic .resume-item-title {
+            color: #2c3e50;
+        }
+        
+        .template-classic .resume-item-subtitle {
+            color: #8B4513;
+        }
+        
+        .template-classic .resume-skill {
+            background: #f5f5f5;
+            color: #2c3e50;
+            border: 1px solid #ddd;
+        }
+        
+        /* Современный шаблон */
+        .template-modern .resume-preview {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #444;
+            background: #fff;
+        }
+        
+        .template-modern .resume-header {
+            border-bottom: none;
+            padding-bottom: 1rem;
+            background: linear-gradient(135deg, #2485c2, #2c509d);
+            color: white;
+            margin: -2rem -2rem 2rem -2rem;
+            padding: 2rem;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .template-modern .resume-name {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .template-modern .resume-title {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+        
+        .template-modern .resume-contact {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .template-modern .resume-section-title {
+            color: #2485c2;
+            border-bottom: 2px solid #2485c2;
+            padding-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .template-modern .resume-section-title i {
+            color: #2485c2;
+        }
+        
+        .template-modern .resume-item-title {
+            color: #2c3e50;
+        }
+        
+        .template-modern .resume-item-subtitle {
+            color: #2485c2;
+            font-style: normal;
+            font-weight: 500;
+        }
+        
+        .template-modern .resume-skill {
+            background: #2485c2;
+            color: white;
+            border-radius: 4px;
+        }
+        
+        .template-modern .resume-item-date {
+            background: #f8f9fa;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        /* Креативный шаблон */
+        .template-creative .resume-preview {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background: #fff;
+            border-left: 5px solid #f59e0b;
+        }
+        
+        .template-creative .resume-header {
+            border-bottom: none;
+            padding-bottom: 1rem;
+            text-align: left;
+            background: #f8f9fa;
+            margin: -2rem -2rem 2rem -2rem;
+            padding: 2rem;
+            border-radius: 0;
+        }
+        
+        .template-creative .resume-name {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .template-creative .resume-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #2485c2);
+        }
+        
+        .template-creative .resume-title {
+            color: #f59e0b;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .template-creative .resume-contact {
+            justify-content: flex-start;
+            gap: 1.5rem;
+        }
+        
+        .template-creative .resume-section-title {
+            color: #2485c2;
+            border-bottom: none;
+            background: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .template-creative .resume-section-title i {
+            color: #f59e0b;
+        }
+        
+        .template-creative .resume-item {
+            border-left: 3px solid #f59e0b;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .template-creative .resume-item-title {
+            color: #2c3e50;
+        }
+        
+        .template-creative .resume-item-subtitle {
+            color: #2485c2;
+            font-style: normal;
+        }
+        
+        .template-creative .resume-skill {
+            background: linear-gradient(135deg, #f59e0b, #e69008);
+            color: white;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .template-creative .resume-item-date {
+            background: #f59e0b;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
         /* Footer */
         .footer {
             background-color: var(--dark-color);
@@ -734,6 +934,18 @@
             .education-period .separator {
                 display: none;
             }
+            
+            /* Адаптивные стили для шаблонов на мобильных */
+            .template-modern .resume-header,
+            .template-creative .resume-header {
+                margin: -1rem -1rem 1.5rem -1rem;
+                padding: 1.5rem;
+            }
+            
+            .template-modern .resume-name,
+            .template-creative .resume-name {
+                font-size: 1.8rem;
+            }
         }
 
         /* Mobile Menu */
@@ -816,113 +1028,40 @@
             opacity: 1;
             visibility: visible;
         }
-        /* Стили для разных шаблонов резюме */
+        
+        /* Добавляем стили для кнопки профиля */
+        .btn-profile {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-/* Классический шаблон (по умолчанию) */
-.template-classic {
-  --primary-color: #2485c2;
-  --accent-color: #f59e0b;
-  font-family: 'Georgia', serif;
-}
+        .btn-profile:hover {
+            background: var(--primary-dark);
+        }
 
-.template-classic .resume-header {
-  text-align: center;
-  border-bottom: 2px solid var(--accent-color);
-}
+        .btn-profile i {
+            font-size: 1rem;
+        }
 
-.template-classic .resume-section-title {
-  border-bottom: 1px solid #e2e8f0;
-}
-
-/* Современный шаблон */
-.template-modern {
-  --primary-color: #2d3748;
-  --accent-color: #4299e1;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.template-modern .resume-header {
-  background: linear-gradient(135deg, var(--primary-color), #4a5568);
-  color: white;
-  padding: 2rem;
-  margin: -2rem -2rem 2rem -2rem;
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
-}
-
-.template-modern .resume-name {
-  color: white;
-  font-size: 2.2rem;
-}
-
-.template-modern .resume-title {
-  color: #e2e8f0;
-}
-
-.template-modern .resume-contact {
-  color: #cbd5e0;
-}
-
-.template-modern .resume-section-title {
-  color: var(--primary-color);
-  border-left: 4px solid var(--accent-color);
-  padding-left: 1rem;
-  border-bottom: none;
-}
-
-/* Креативный шаблон */
-.template-creative {
-  --primary-color: #7c3aed;
-  --accent-color: #10b981;
-  font-family: 'Arial', sans-serif;
-}
-
-.template-creative .resume-header {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 3px double var(--accent-color);
-}
-
-.template-creative .resume-header::before {
-  content: "";
-  width: 100px;
-  height: 100px;
-  background: var(--primary-color);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.template-creative .resume-contact {
-  justify-content: flex-start;
-  gap: 2rem;
-}
-
-.template-creative .resume-section {
-  background: #f8fafc;
-  padding: 1.5rem;
-  border-radius: var(--border-radius);
-  margin-bottom: 1.5rem;
-}
-
-.template-creative .resume-section-title {
-  color: var(--primary-color);
-  border-bottom: 2px dotted var(--accent-color);
-}
-.resume-contact div {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.resume-contact i {
-    width: 16px;
-    color: var(--accent-color);
-}
+        @media (max-width: 768px) {
+            /* Остальные стили для мобильной версии */
+            /* ... */
+        }
     </style>
 </head>
 <body>
-    <!-- Header -->
+     <!-- Header -->
     <header>
         <div class="container">
             <nav class="navbar">
@@ -941,8 +1080,9 @@
                 </ul>
                 
                 <div class="auth-buttons">
-                    <a href="login.html" class="btn btn-outline">Войти</a>
-                    <a href="signup.html" class="btn btn-accent">Зарегистрироваться</a>
+                    <a href="profile.html" class="btn-profile">
+                        <i class="fas fa-user"></i> Профиль
+                    </a>
                 </div>
                 
                 <button class="mobile-menu-btn">☰</button>
@@ -951,7 +1091,7 @@
     </header>
 
     <!-- Mobile Menu -->
-    <div class="overlay"></div>
+     <div class="overlay"></div>
     <div class="mobile-menu">
         <div class="mobile-menu-header">
             <a href="index.html" class="logo">ResumePro</a>
@@ -966,8 +1106,9 @@
         </ul>
         
         <div class="mobile-auth-buttons">
-            <a href="login.html" class="btn btn-outline">Войти</a>
-            <a href="signup.html" class="btn btn-accent">Зарегистрироваться</a>
+            <a href="profile.html" class="btn-profile">
+                <i class="fas fa-user"></i> Профиль
+            </a>
         </div>
     </div>
 
@@ -1140,17 +1281,19 @@
             </div>
             
             <div class="preview-container">
-               <div class="resume-header">
-    <div class="resume-name" id="previewName">Иванов Иван Иванович</div>
-    <div class="resume-title" id="previewTitle">Frontend разработчик</div>
-    <div class="resume-contact">
-        <div><i class="fas fa-envelope"></i> <span id="previewEmail">example@email.com</span></div>
-        <div><i class="fas fa-phone"></i> <span id="previewPhone">+7 (999) 123-45-67</span></div>
-        <div><i class="fas fa-map-marker-alt"></i> <span id="previewLocation">Москва, Россия</span></div>
-    </div>
-</div>
+                <div class="preview-header">
+                    <h2>Предпросмотр резюме</h2>
+                    <div class="preview-actions">
+                        <button class="btn btn-outline" id="saveBtn">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                        <button class="btn btn-accent" id="exportBtn">
+                            <i class="fas fa-download"></i> Экспорт PDF
+                        </button>
+                    </div>
+                </div>
                 
-                <div class="resume-preview" id="resumePreview">
+                <div class="resume-preview template-classic" id="resumePreview">
                     <div class="resume-header">
                         <div class="resume-name" id="previewName">Иванов Иван Иванович</div>
                         <div class="resume-title" id="previewTitle">Frontend разработчик</div>
@@ -1827,51 +1970,25 @@
         });
         
         // Template Selection
-const templateOptions = document.querySelectorAll('.template-option');
-const resumePreview = document.getElementById('resumePreview');
-
-templateOptions.forEach(option => {
-    option.addEventListener('click', function() {
-        // Remove active class from all options
-        templateOptions.forEach(opt => opt.classList.remove('active'));
+        const templateOptions = document.querySelectorAll('.template-option');
+        const resumePreview = document.getElementById('resumePreview');
         
-        // Add active class to clicked option
-        this.classList.add('active');
-        
-        // Get selected template
-        const template = this.getAttribute('data-template');
-        
-        // Remove all template classes
-        resumePreview.classList.remove('template-classic', 'template-modern', 'template-creative');
-        
-        // Add selected template class
-        resumePreview.classList.add(`template-${template}`);
-        
-        // Update preview layout based on template
-        updatePreviewLayout(template);
-    });
-});
-
-// Function to update layout based on template
-function updatePreviewLayout(template) {
-    const resumeHeader = document.querySelector('.resume-header');
-    const contactInfo = document.querySelector('.resume-contact');
-    
-    switch(template) {
-        case 'modern':
-            // Для современного шаблона можно добавить дополнительные изменения
-            break;
-        case 'creative':
-            // Для креативного шаблона
-            break;
-        default:
-            // Для классического шаблона
-            break;
-    }
-}
-
-// Initialize with classic template
-resumePreview.classList.add('template-classic');
+        templateOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                templateOptions.forEach(opt => opt.classList.remove('active'));
+                
+                // Add active class to clicked option
+                this.classList.add('active');
+                
+                // Change template
+                const template = this.getAttribute('data-template');
+                
+                // Remove all template classes and add the selected one
+                resumePreview.classList.remove('template-classic', 'template-modern', 'template-creative');
+                resumePreview.classList.add(`template-${template}`);
+            });
+        });
         
         // Save and Export Buttons
         document.getElementById('saveBtn').addEventListener('click', function() {
@@ -1902,37 +2019,6 @@ resumePreview.classList.add('template-classic');
         
         // Initialize the form when the page loads
         document.addEventListener('DOMContentLoaded', initializeForm);
-
-        // Save selected template to localStorage
-function saveTemplateSelection(template) {
-    localStorage.setItem('selectedTemplate', template);
-}
-
-// Load saved template on page load
-function loadSavedTemplate() {
-    const savedTemplate = localStorage.getItem('selectedTemplate') || 'classic';
-    const templateOption = document.querySelector(`[data-template="${savedTemplate}"]`);
-    
-    if (templateOption) {
-        templateOption.click(); // Активируем сохраненный шаблон
-    }
-}
-
-// Обновите обработчик шаблонов:
-templateOptions.forEach(option => {
-    option.addEventListener('click', function() {
-        // ... существующий код ...
-        
-        // Save selection
-        saveTemplateSelection(template);
-    });
-});
-
-// Вызовите при загрузке
-document.addEventListener('DOMContentLoaded', function() {
-    initializeForm();
-    loadSavedTemplate(); // Загружаем сохраненный шаблон
-});
     </script>
 </body>
 </html>
