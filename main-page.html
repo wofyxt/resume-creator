@@ -230,5 +230,171 @@
         </div>
     </footer>
     <script src="scripts/script.js"></script>
+    <script>
+        // Функции для работы с API
+        const API_URL = 'http://localhost:3000/api';
+
+        // Сохранение токена в localStorage
+        function saveToken(token) {
+        localStorage.setItem('authToken', token);
+        }
+
+        // Получение токена из localStorage
+        function getToken() {
+        return localStorage.getItem('authToken');
+        }
+
+        // Удаление токена (выход)
+        function logout() {
+        localStorage.removeItem('authToken');
+        window.location.reload();
+        }
+
+        // Проверка авторизации
+        function isAuthenticated() {
+        return !!getToken();
+        }
+
+        // Регистрация
+        async function register(email, password, name) {
+        try {
+            const response = await fetch(`${API_URL}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password, name }),
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+            saveToken(data.token);
+            return data;
+            } else {
+            throw new Error(data.error);
+            }
+        } catch (error) {
+            console.error('Ошибка регистрации:', error);
+            throw error;
+        }
+        }
+
+        // Вход
+        async function login(email, password) {
+        try {
+            const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+            saveToken(data.token);
+            return data;
+            } else {
+            throw new Error(data.error);
+            }
+        } catch (error) {
+            console.error('Ошибка входа:', error);
+            throw error;
+        }
+        }
+
+        // Сохранение резюме
+        async function saveResume(title, data) {
+        try {
+            const token = getToken();
+            if (!token) {
+            throw new Error('Необходима авторизация');
+            }
+            
+            const response = await fetch(`${API_URL}/resumes`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ title, data }),
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+            return result;
+            } else {
+            throw new Error(result.error);
+            }
+        } catch (error) {
+            console.error('Ошибка сохранения резюме:', error);
+            throw error;
+        }
+        }
+
+        // Получение списка резюме
+        async function getResumes() {
+        try {
+            const token = getToken();
+            if (!token) {
+            throw new Error('Необходима авторизация');
+            }
+            
+            const response = await fetch(`${API_URL}/resumes`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+            return result;
+            } else {
+            throw new Error(result.error);
+            }
+        } catch (error) {
+            console.error('Ошибка получения резюме:', error);
+            throw error;
+        }
+        }
+
+        // Пример использования:
+        // При отправке формы регистрации:
+        document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const name = document.getElementById('name').value;
+        
+        try {
+            await register(email, password, name);
+            alert('Регистрация успешна!');
+            // Обновить интерфейс
+        } catch (error) {
+            alert('Ошибка: ' + error.message);
+        }
+        });
+
+        // При сохранении резюме:
+        async function onSaveResume() {
+        const resumeData = {
+            // ваши данные резюме
+            personalInfo: { /* ... */ },
+            experience: [ /* ... */ ],
+            education: [ /* ... */ ]
+        };
+        
+        try {
+            await saveResume('Мое резюме', resumeData);
+            alert('Резюме сохранено!');
+        } catch (error) {
+            alert('Ошибка сохранения: ' + error.message);
+        }
+        }
+</script>
 </body>
 </html>
