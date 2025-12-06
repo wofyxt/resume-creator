@@ -57,8 +57,12 @@
             
             if (isValid) {
                 // In a real app, this would send data to the server
-                alert('Вход выполнен успешно! Перенаправление в личный кабинет...');
+                // alert('Вход выполнен успешно! Перенаправление в личный кабинет...');
                 // window.location.href = '/dashboard';
+
+                setTimeout(() => {
+                    window.location.href = 'resume-builder.html';
+                }, 2000);
             }
         });
         

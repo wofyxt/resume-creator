@@ -54,15 +54,21 @@
            // });
         //});
 
-    //кнопки
-    const loginBtn = document.querySelector('.btn.btn-outline');
-    const regBtn = document.querySelector('.btn.btn-accent');
+    // кнопки
+    const loginBtn = document.querySelector('.btn-outline');
+    const regBtn = document.querySelectorAll('.btn-accent');
+    const temBtn = document.querySelector('.btn-template');
 
-    loginBtn.addEventListener('click', function(){
-        window.location.href = 'login.html';
+    loginBtn.addEventListener('click', () => {
+            window.location.href = 'login.html';
     });
 
-     regBtn.addEventListener('click', function(){
-        window.location.href = 'registration.html';
+    regBtn.forEach(button => {
+        button.addEventListener('click', function() {
+            window.location.href = 'registration.html';
+        });
     });
-    
+
+    temBtn.addEventListener('click', () => {
+            window.location.href = 'mini-pages/template.html';
+    });

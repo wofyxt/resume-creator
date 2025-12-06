@@ -1,4 +1,4 @@
-// Общие функции аутентификации для всех страниц
+{// Общие функции аутентификации для всех страниц
 const API_URL = 'http://localhost:3000/api';
 
 // Получение токена
@@ -61,4 +61,4 @@ async function saveResume(title, resumeData) {
         console.error('Ошибка сохранения резюме:', error);
         throw error;
     }
-}
+}}

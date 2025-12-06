@@ -1,4 +1,4 @@
-// Конфигурация API
+{// Конфигурация API
 const API_URL = 'http://localhost:3000/api';
 
 // Mobile Menu Toggle
@@ -150,7 +150,7 @@ signupForm.addEventListener('submit', async function(e) {
                 
                 // Перенаправляем на главную страницу через 2 секунды
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = 'resume-builder.html';
                 }, 2000);
                 
             } else {
@@ -198,4 +198,4 @@ function checkAuth() {
 // Проверяем авторизацию при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
-});
+});}
